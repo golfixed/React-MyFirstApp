@@ -31,7 +31,7 @@ class App extends React.Component {
                     </div>
                 </div>
                 <div>
-                    <div class="section1 grid-container-quicklink">
+                    <div class="grid-container-quicklink">
                         <div class="box link1">
                             <span class="linkname-div">
                                 <span class="linkname-text">MRT Route Maps</span>
@@ -56,6 +56,16 @@ class App extends React.Component {
                             <span class="linkname-div">
                                 <span class="linkname-text">Fare Calculation</span>
                             </span>
+                        </div>
+                    </div>
+                    <div class="grid-container-paragraph1">
+                        <div class="paragraph-box p1-image">
+                        </div>
+                        <div class="paragraph-box">
+                        <div class="">
+                            <span class="param-title">Thank you for using the MRT</span>
+                            <span class="param-subtitle">Find out more about the MRT</span>
+                        </div>
                         </div>
                     </div>
                 </div>
