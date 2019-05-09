@@ -82,17 +82,19 @@ class ViewContact extends React.Component {
         return (
             <div className="grid-container-contact">
                 <h1>CONTACT</h1>
-                <form>
-                    <div>
-                        <span className="form-text">Contact name:</span>
-                        <input className="textfield" type="text" placeholder="name" />
-                    </div>
-                    <div>
-                        <span className="form-text">Email:</span>
-                        <input className="textfield" type="email" placeholder="example@mail.com" />
-                    </div>
-                    <Btn text="Submit" />
-                </form>
+                <div className="contact-box">
+                    <form className="card">
+                        <div>
+                            <span className="form-text">Contact name:</span>
+                            <input className="textfield" type="text" placeholder="Jon Snow" required/>
+                        </div>
+                        <div>
+                            <span className="form-text">Email:</span>
+                            <input className="textfield" type="email" placeholder="example@mail.com" required/>
+                        </div>
+                        <Btn text="Submit" />
+                    </form>
+                </div>
             </div>
         )
     }
@@ -134,9 +136,7 @@ class ViewAbout extends React.Component {
 class App extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            page: '1'
-        }
+        this.state = { page: '1' }
 
         this.goHome = this.goHome.bind(this)
         this.changeToContact = this.changeToContact.bind(this)
