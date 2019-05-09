@@ -272,10 +272,12 @@ h4 {
 
 .textfield {
     margin: 10px 0px;
-    /* width: 100%; */
+    width: 100%;
     font-size: 25px;
-    padding: 10px;
     display: block;
+    border-width: 0 0 1px 0;
+    padding: 15px 0px;
+    text-indent: 10px;
 }
 
 .form-text{
@@ -290,4 +292,16 @@ h4 {
     border-radius: 20px;
     font-size: 20px;
     margin: 10px 0;
+}
+
+.card {
+    width: 500px;
+    border: 1px solid darkgrey;
+    padding: 30px;
+    border-radius: 6px;
+}
+.contact-box{
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
