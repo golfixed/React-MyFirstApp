@@ -1,6 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Modal from 'react-modal';
+
+Modal.setAppElement(document.getElementById('root'));
+
+const customModalStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        width: '900px',
+        padding: '40px 20px',
+        borderRadius: '10px'
+    }
+};
 
 class Btn extends React.Component {
     render() {
@@ -34,6 +51,20 @@ const QlStyle = (bg) => {
 };
 
 class ViewHome extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            MRTInfoModal: false
+        };
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+    }
+    openModal() {
+        this.setState({ MRTInfoModal: true });
+    }
+    closeModal() {
+        this.setState({ MRTInfoModal: false });
+    }
     render() {
         return (
             <div>
@@ -61,7 +92,21 @@ class ViewHome extends React.Component {
                         <div className="paragraph-box">
                             <div>
                                 <h3 className="h3-light">Thank you for using the MRT</h3>
-                                <h4>Find out more about the MRT</h4>
+                                <h4 className="readmore" onClick={this.openModal}>Find out more about the MRT</h4>
+                                <Modal
+                                    isOpen={this.state.MRTInfoModal}
+                                    onRequestClose={this.closeModal}
+                                    style={customModalStyles}
+                                >
+                                <div className="">
+                                    <h3>Bangkok MRT</h3>
+                                </div>
+                                <div>
+                                    <p style={{ textIndent: '20px' }}>The Bangkok MRT underground runs underneath Rama IV and Ratchadapisek Roads, the two thoroughfares that cut through the heart of downtown Bangkok. Although additional lines and extensions are in the pipeline, it currently only comprises the blue line, serving 18 stations from Hua Lamphong to Bang Sue. Trains every five minutes in peak times (07:00 - 09:00, 16:00 - 19:00) and every seven minutes at other times.</p>
+                                    <a href="http://www.bangkok.com/information-travel-around/mrt.htm?cid=ch:OTH:001">read more</a>
+                                    <button className="readmore" onClick={this.closeModal}>Close</button>
+                                </div>
+                                </Modal>
                             </div>
                         </div>
                     </div>
@@ -86,11 +131,11 @@ class ViewContact extends React.Component {
                     <form className="card">
                         <div>
                             <span className="form-text">Contact name:</span>
-                            <input className="textfield" type="text" placeholder="Jon Snow" required/>
+                            <input className="textfield" type="text" placeholder="Jon Snow" required />
                         </div>
                         <div>
                             <span className="form-text">Email:</span>
-                            <input className="textfield" type="email" placeholder="example@mail.com" required/>
+                            <input className="textfield" type="email" placeholder="example@mail.com" required />
                         </div>
                         <Btn text="Submit" />
                     </form>
@@ -136,7 +181,9 @@ class ViewAbout extends React.Component {
 class App extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { page: '1' }
+        this.state = {
+            page: '1'
+        }
 
         this.goHome = this.goHome.bind(this)
         this.changeToContact = this.changeToContact.bind(this)
@@ -169,10 +216,6 @@ class App extends React.Component {
                     </ul>
                 </nav>
                 <div>
-                    {/* {this.state.page === '3' ?
-                        <ViewContact />:
-                        <ViewHome />
-                    } */}
                     {
                         this.state.page === '1' ?
                             <ViewHome /> :
