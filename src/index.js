@@ -98,14 +98,14 @@ class ViewHome extends React.Component {
                                     onRequestClose={this.closeModal}
                                     style={customModalStyles}
                                 >
-                                <div className="">
-                                    <h3>Bangkok MRT</h3>
-                                </div>
-                                <div>
-                                    <p style={{ textIndent: '20px' }}>The Bangkok MRT underground runs underneath Rama IV and Ratchadapisek Roads, the two thoroughfares that cut through the heart of downtown Bangkok. Although additional lines and extensions are in the pipeline, it currently only comprises the blue line, serving 18 stations from Hua Lamphong to Bang Sue. Trains every five minutes in peak times (07:00 - 09:00, 16:00 - 19:00) and every seven minutes at other times.</p>
-                                    <a href="http://www.bangkok.com/information-travel-around/mrt.htm?cid=ch:OTH:001">read more</a>
-                                    <button className="readmore" onClick={this.closeModal}>Close</button>
-                                </div>
+                                    <div className="">
+                                        <h3>Bangkok MRT</h3>
+                                    </div>
+                                    <div>
+                                        <p style={{ textIndent: '20px' }}>The Bangkok MRT underground runs underneath Rama IV and Ratchadapisek Roads, the two thoroughfares that cut through the heart of downtown Bangkok. Although additional lines and extensions are in the pipeline, it currently only comprises the blue line, serving 18 stations from Hua Lamphong to Bang Sue. Trains every five minutes in peak times (07:00 - 09:00, 16:00 - 19:00) and every seven minutes at other times.</p>
+                                        <a href="http://www.bangkok.com/information-travel-around/mrt.htm?cid=ch:OTH:001">read more</a>
+                                        <button className="readmore" onClick={this.closeModal}>Close</button>
+                                    </div>
                                 </Modal>
                             </div>
                         </div>
@@ -155,28 +155,53 @@ class ViewAbout extends React.Component {
     }
 }
 
-// class Navbar extends React.Component {
-//     render() {
-//         return (
-//             <nav className="nav-div" >
-//                 <div className="col6" >
-//                     <div className="logo-div" >
-//                         <img src="static/img/logo.png" alt="" />
-//                     </div>
-//                     <span className="web-title"> BANGKOK EXPRESSWAY AND METRO </span>
-//                 </div>
-//                 <ul className="col6 nav-item-div" style={{}}>
-//                     <li> About </li>
-//                     <li> Route Maps </li>
-//                     <li> Projects</li>
-//                     <li>
-//                         <button onClick={this.changePage}> Contact </button>
-//                     </li>
-//                 </ul>
-//             </nav>
-//         )
-//     }
-// }
+class Navbar extends React.Component {
+    constructor(props) {
+        super(props)
+        this.changePage = this.changePage.bind(this)
+    }
+
+    changePage(input) {
+        this.props.navClick(input)
+    }
+    render() {
+        return (
+            <nav className="nav-div" >
+                <div className="col6"  onClick={() => this.changePage('1')}>
+                    <div className="logo-div" >
+                        <img src="static/img/logo.png" alt="" />
+                    </div>
+                    <span className="web-title"> BANGKOK EXPRESSWAY AND METRO </span>
+                </div>
+                <ul className="col6 nav-item-div" style={{}}>
+                    <li onClick={() => this.changePage('2')}> About </li>
+                    <li> Route Maps </li>
+                    <li> Projects</li>
+                    <li onClick={() => this.changePage('5')}> Contact </li>
+                    {/* <li onClick={() => {this.props.navClick('5')}}> Contact 2 </li> */}
+                </ul>
+            </nav>
+        )
+    }
+}
+
+class View extends React.Component {
+    render() {
+        return (
+            <div>
+                {
+                    this.props.page === '1' ?
+                        <ViewHome /> :
+                        this.props.page === '2' ?
+                            <ViewAbout /> :
+                            this.props.page === '5' ?
+                                <ViewContact /> :
+                                <ViewHome />
+                }
+            </div>
+        )
+    }
+}
 
 class App extends React.Component {
     constructor(props) {
@@ -184,48 +209,18 @@ class App extends React.Component {
         this.state = {
             page: '1'
         }
+        this.navClick = this.navClick.bind(this)
+    }
 
-        this.goHome = this.goHome.bind(this)
-        this.changeToContact = this.changeToContact.bind(this)
-        this.changeToAbout = this.changeToAbout.bind(this)
+    navClick(view) {
+        this.setState({ page: view })
     }
-    goHome() {
-        this.setState({ page: '1' })
-    }
-    changeToAbout() {
-        this.setState({ page: '2' })
-    }
-    changeToContact() {
-        this.setState({ page: '5' })
-    }
+
     render() {
         return (
             <div className="app">
-                <nav className="nav-div" >
-                    <div className="col6">
-                        <div className="logo-div" onClick={this.goHome} style={{ cursor: 'pointer' }}>
-                            <img src="static/img/logo.png" alt="" />
-                        </div>
-                        <span className="web-title" onClick={this.goHome} style={{ cursor: 'pointer' }}> BANGKOK EXPRESSWAY AND METRO </span>
-                    </div>
-                    <ul className="col6 nav-item-div">
-                        <li onClick={this.changeToAbout}> About </li>
-                        <li> Route Maps </li>
-                        <li> Projects</li>
-                        <li onClick={this.changeToContact}>Contact</li>
-                    </ul>
-                </nav>
-                <div>
-                    {
-                        this.state.page === '1' ?
-                            <ViewHome /> :
-                            this.state.page === '2' ?
-                                <ViewAbout /> :
-                                this.state.page === '5' ?
-                                    <ViewContact /> :
-                                    <ViewHome />
-                    }
-                </div>
+                <Navbar navClick={this.navClick} />
+                <View page={this.state.page} />
             </div>
         )
     }

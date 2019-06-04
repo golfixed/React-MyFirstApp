@@ -12,13 +12,15 @@
     "react-dom": "^16.8.6",
     "react-modal": "^3.8.1",
     "react-router": "^5.0.0",
-    "react-scripts": "3.0.0"
+    "react-scripts": "3.0.0",
+    "webpack-cli": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "webpack" : "webpack"
   },
   "eslintConfig": {
     "extends": "react-app"
